@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ItemStatus } from './item-status.enum';
 import {ItemsService} from './items.service'
 import {Item} from './item.model'
@@ -8,8 +8,13 @@ export class ItemsController {
     constructor(private readonly itemsService : ItemsService){}
 
     @Get()
-    findAll() {
+    findAll() : Item[]{
         return this.itemsService.findAll();
+    }
+
+    @Get(':id') //items/id
+    findById(@Param(':id') id :string) : Item {
+        return this.itemsService.findById(id);
     }
 
     @Post()
@@ -19,7 +24,7 @@ export class ItemsController {
         @Body('price') price: number,
         @Body('description') description :string,
     ): Item {
-        const item:Item ={
+        const item:Item = {
             id,
             name,
             price,
@@ -29,4 +34,6 @@ export class ItemsController {
 
         return this.itemsService.create(item);
     }
+
+    
 }
