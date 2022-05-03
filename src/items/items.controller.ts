@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   ParseUUIDPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { Item } from './item.model';
 import { ItemsService } from './items.service';
